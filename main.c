@@ -3,7 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <conio.h>
+#include <termios.h>
+#include <unistd.h>
 
 /* Defined board symbols */
 #define SYM_WATER '~'
@@ -36,6 +37,20 @@ void flush()
 {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
+}
+
+/* Implement `getch()` for Linux */
+int getch()
+{
+  int ch;
+  struct termios oldt, newt;
+  tcgetattr ( STDIN_FILENO, &oldt );
+  newt = oldt;
+  newt.c_lflag &= ~( ICANON | ECHO );
+  tcsetattr ( STDIN_FILENO, TCSANOW, &newt );
+  ch = getchar();
+  tcsetattr ( STDIN_FILENO, TCSANOW, &oldt );
+  return ch;
 }
 
 /* Print the given grid to the console */
