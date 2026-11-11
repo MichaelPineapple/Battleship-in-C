@@ -1,2 +1,4 @@
 # Battleship-in-C
-A simple, two-player, CLI battleship game for Windows. 
+Two-player CLI battleship game. 
+
+![screenshot0](https://github.com/MichaelPineapple/Battleship-in-C/screenshots/screenshot0.png)
